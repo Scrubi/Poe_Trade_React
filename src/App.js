@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import PostRequest from "./PostRequest";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+
+class App extends Component {
+  state = {
+    name: ''
+  }
+  onSubmit = (e) => {  
+    this.setState({ name: '' })
+    e.preventDefault();
+    console.log("Item Name: " + this.state.name);
+    //return this.state.name;
+  }
+
+  onChange = (e) => {
+    this.setState({[e.target.name]: e.target.value})
+  }
+  render() {
+    return (
+      <div>
+        
+        <form onSubmit={this.onSubmit}>
+          <label for="itemName">Name: </label>
+          <input
+            type="text"
+            className="fld"
+            id="itemName"
+            name="name"
+            value={this.state.name}
+            onChange={this.onChange}
+          ></input>
+          <input type="submit" value="Search"></input>
+        </form>
+        <PostRequest />
+      </div>
+    );
+  }
 }
 
 export default App;
